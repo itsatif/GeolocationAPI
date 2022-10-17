@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import axios from "axios";
+import fs from "fs";
 const app = express();
 app.use(cors());
 let countryData = [];
@@ -29,6 +30,8 @@ let countryData = [];
       }
       countryData.push(obj);
     });
+    let data = JSON.stringify(countryData);
+    fs.writeFileSync('data.json',data);
 })();
 app.get("/api/v1/geoLocation", (req, res) => {
   res.send(countryData);
